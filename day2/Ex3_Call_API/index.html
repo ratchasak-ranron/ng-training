@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="firstApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact with $http</title>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="js/main.ctrl.js"></script>
+  <link href="css/app.css" rel=stylesheet>
+</head>
+<body>
+<div ng-controller="MainCtrl">
+  <h2>Contact List</h2>
+  <div>
+    <p ng-show="isLoadingContactList">Loading</p>
+    <table ng-show="!isLoadingContactList" width="100%">
+      <tr ng-repeat="contact in contactContainer.contactList">
+        <td>{{ contact.getName() }}</td>
+        <td>{{ contact.getEmail() }}</td>
+        <td>{{ contact.getPhone() }}</td>
+        <td>{{ contact.getUrl() }}</td>
+        <td>{{ contact.getNotes() }}</td>
+        <td><button ng-click="prepareUpdate(contact)">Update</button></td>
+        <td><button ng-click="deleteContact(contact)">Delete</button></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>Get Contact By ID</h2>
+  <div>
+    Contact ID: <input ng-model="contactId" ng-keypress="$event.which == 13 && getContact()">
+    <p ng-show="isLoadingContact">Loading</p>
+    <p ng-show="errorContact != null">{{errorContact}}</p>
+    <table ng-show="!isLoadingContact" width="100%">
+      <tr>
+        <td>{{ aContact.getName() }}</td>
+        <td>{{ aContact.getEmail() }}</td>
+        <td>{{ aContact.getPhone() }}</td>
+        <td>{{ aContact.getUrl() }}</td>
+        <td>{{ aContact.getNotes() }}</td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>Add Contact</h2>
+  <div>
+    <p ng-show="addMessage != null">{{addMessage}}</p>
+    <div>
+      Name: <input ng-model="addName"><br/>
+      Email: <input ng-model="addEmail"><br/>
+      Phone: <input ng-model="addPhone"><br/>
+      URL: <input ng-model="addUrl"><br/>
+      Notes: <textarea ng-model="addNotes"></textarea><br/>
+      <button ng-click="addContact()">Add Contact</button>
+    </div>
+  </div>
+
+  <h2>Update Contact</h2>
+  <div>
+    <p ng-show="updateMessage != null">{{updateMessage}}</p>
+    <div>
+      Name: <input ng-model="updateName"><br/>
+      Email: <input ng-model="updateEmail"><br/>
+      Phone: <input ng-model="updatePhone"><br/>
+      URL: <input ng-model="updateUrl"><br/>
+      Notes: <textarea ng-model="updateNotes"></textarea><br/>
+      <button ng-click="updateContact()">Update Contact</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
