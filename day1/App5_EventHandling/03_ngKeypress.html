@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en" ng-app="contactApp">
+<head>
+  <meta charset="utf-8">
+  <title>Contact List</title>
+  <link href="css/app.css" rel=stylesheet>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="js/main.ctrl.js"></script>
+</head>
+<body>
+<div ng-controller="MainCtrl">
+  <input ng-keypress="count = count + 1; keyCode = $event.which" ng-init="count=0">
+  key press count: {{count}}
+  keyCode: {{keyCode}}
+</div>
+</body>
+</html>

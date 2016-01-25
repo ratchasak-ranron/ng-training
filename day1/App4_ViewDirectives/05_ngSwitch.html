@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" ng-app="contactApp">
+<head>
+  <meta charset="utf-8">
+  <title>Contact List</title>
+  <link href="css/app.css" rel=stylesheet>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="js/main.ctrl.js"></script>
+</head>
+<body>
+<div ng-controller="MainCtrl">
+  <select ng-model="selection" ng-options="item for item in items">
+  </select>
+  <code>selection={{selection}}</code>
+  <hr/>
+  <div ng-switch on="selection">
+      <div ng-switch-when="settings">Settings Div</div>
+      <div ng-switch-when="home">Home Span</div>
+      <div ng-switch-default>default</div>
+  </div>
+</div>
+</body>
+</html>

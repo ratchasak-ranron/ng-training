@@ -1,0 +1,29 @@
+/* 01_ngClass */
+.strike {
+    text-decoration: line-through;
+}
+.bold {
+    font-weight: bold;
+}
+.red {
+    color: red;
+}
+.has-error {
+    color: red;
+    background-color: yellow;
+}
+.orange {
+    color: orange;
+}
+
+/* 02_ngHideShow */
+.check-element {
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+}
+
+/* 05_ngStyle */
+span {
+  color: black;
+}

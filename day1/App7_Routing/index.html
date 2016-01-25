@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" ng-app="contactApp">
+<head>
+  <meta charset="utf-8">
+  <title>Contact List</title>
+  <link href="css/app.css" rel=stylesheet>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="js/main.ctrl.js"></script>
+</head>
+<body>
+<div ng-controller="MainCtrl">
+  <select ng-model="page">
+    <option value="A">Page A</option>
+    <option value="B">Page B</option>
+    <option value="C">Page C</option>
+    <option value="D">Page D</option>
+  </select>
+  {{page}}
+  <div ng-view></div>
+</div>
+
+<script type="text/ng-template" id="route-a.html">
+  Route A
+</script>
+
+
+</body>
+</html>

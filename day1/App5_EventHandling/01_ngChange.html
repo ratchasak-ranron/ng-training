@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" ng-app="contactApp">
+<head>
+  <meta charset="utf-8">
+  <title>Contact List</title>
+  <link href="css/app.css" rel=stylesheet>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="js/main.ctrl.js"></script>
+</head>
+<body>
+<div ng-controller="MainCtrl">
+  <input type="checkbox" ng-model="confirmed" ng-change="change()" id="ng-change-example1" />
+  <input type="checkbox" ng-model="confirmed" id="ng-change-example2" />
+  <label for="ng-change-example2">Confirmed</label><br />
+  <tt>debug = {{confirmed}}</tt><br/>
+  <tt>counter = {{counter}}</tt><br/>
+</div>
+</body>
+</html>

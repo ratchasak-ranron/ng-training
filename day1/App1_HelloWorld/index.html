@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en" ng-app="helloworldApp">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="js/main.ctrl.js"></script>
+  <script src="js/second.ctrl.js"></script>
+</head>
+<body>
+<div ng-controller="MainCtrl">
+	<p>{{ txtHello }}</p>
+</div>
+<div ng-controller="SecondCtrl">
+	<p>{{ txtHello }}</p>
+</div>
+</body>
+</html>

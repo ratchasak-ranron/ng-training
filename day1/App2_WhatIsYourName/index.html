@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en" ng-app="helloworldApp">
+<head>
+  <meta charset="utf-8">
+  <title>Hi {{ name }}</title>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="js/main.ctrl.js"></script>
+</head>
+<body>
+<div ng-controller="MainCtrl">
+	<p>What is your name: <input ng-model="$parent.name"></p>
+	<p>Your name is: {{ $parent.name }}</p>
+</div>
+</body>
+</html>
