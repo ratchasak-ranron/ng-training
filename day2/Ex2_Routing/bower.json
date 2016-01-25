@@ -17,6 +17,6 @@
   ],
   "dependencies": {
     "angular": "angularjs#~1.4.9",
-    "angular-sanitize": "~1.4.9"
+    "angular-route": "~1.4.9"
   }
 }

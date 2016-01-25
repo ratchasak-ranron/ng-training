@@ -1,64 +1,38 @@
-var app = angular.module('firstApp', ['ngSanitize']);
+var app = angular.module('contactApp', ['ngRoute']);
 
-// Factory as a Constant
-app.factory('ContactConstant', function(){
-  return {
-    DEFAULT_MONEY: 500
-  };
+//ng-route config
+app.config(function ($routeProvider, $locationProvider){
+  $routeProvider
+    .when('/routeA', {
+      templateUrl: 'route-a.html',
+    })
+    .when('/routeB/:id', {
+      templateUrl: 'route-b.html',
+      controller: 'RouteBCtrl'
+    })
+    .when('/routeC', {
+      templateUrl: 'route-c.html',
+      controller: 'RouteCCtrl'
+    })
+    .when('/routeD/:id', {
+      templateUrl: 'route-d.html',
+      controller: 'RouteDCtrl'
+    })
+    .otherwise({redirectTo: '/routeA'});
 });
 
-// Factory as a Class
-app.factory('Contact', function(ContactConstant) {
-  function Contact(myName, myEmail, myPhone, myMoney) {
-    // Public variable
-    this.name = myName;
-    this.email = myEmail;
-    this.phone = myPhone;
+app.controller('MainCtrl', function ($scope, $rootScope) {
 
-    if(myMoney != undefined) {
-      this.money = myMoney;
-    } else {
-      this.money = ContactConstant.DEFAULT_MONEY;
-    }
-  }
-
-  Contact.prototype.checkMoney = function checkNameLength() {
-    return this.money >= 5000;
-
-  };
-
-  Contact.prototype.getName = function getName() {
-    return this.name;
-  };
-
-  Contact.prototype.getEmail = function getEmail() {
-    return this.email;
-  };
-
-  Contact.prototype.getPhone = function getPhone() {
-    return this.phone;
-  };
-
-  Contact.prototype.getMoney = function getMoney() {
-    return this.money;
-  };
-
-  return Contact;
 });
 
-// Factory as a Singleton/Config
-app.factory('contactContainer', function(ContactConstant, Contact) {
-  this.contactList = [];
-
-  return this;
+app.controller('RouteBCtrl', function ($scope, $routeParams) {
+  $scope.id = $routeParams.id;
 });
 
-app.controller('MainCtrl', function ($scope, $rootScope, Contact, contactContainer) {
-  contactContainer.contactList = [
-    new Contact('New', 'Ratchsak@gmail.com', '0866058855', 10000),
-    new Contact('New', 'Ratchsak@gmail.com', '0866058855'),
-    new Contact('New', 'Ratchsak@gmail.com', '0866058855', 10000)
-  ];
+app.controller('RouteCCtrl', function ($scope, $rootScope) {
 
-  $scope.contactContainer = contactContainer;
+});
+
+app.controller('RouteDCtrl', function ($scope, $routeParams) {
+  $scope.id = $routeParams.id;
 });
