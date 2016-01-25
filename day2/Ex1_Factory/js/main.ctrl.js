@@ -48,7 +48,16 @@ app.factory('Contact', function(ContactConstant) {
 
 // Factory as a Singleton/Config
 app.factory('contactContainer', function(ContactConstant, Contact) {
+  // Private variable
+  var privateVar = 555;
+
+  // Public variable
   this.contactList = [];
+
+  // Static method
+  this.getPrivateVar = function() {
+    return privateVar;
+  };
 
   return this;
 });
