@@ -21,18 +21,20 @@ app.config(function ($routeProvider, $locationProvider){
     .otherwise({redirectTo: '/routeA'});
 });
 
-app.controller('MainCtrl', function ($scope, $rootScope) {
-
+app.controller('MainCtrl', function ($scope, $location) {
+  $scope.path = $location.path();
 });
 
-app.controller('RouteBCtrl', function ($scope, $routeParams) {
+app.controller('RouteBCtrl', function ($scope, $routeParams, $location) {
   $scope.id = $routeParams.id;
+  $scope.path = $location.path();
 });
 
-app.controller('RouteCCtrl', function ($scope, $rootScope) {
-
+app.controller('RouteCCtrl', function ($scope, $location) {
+  $scope.path = $location.path();
 });
 
-app.controller('RouteDCtrl', function ($scope, $routeParams) {
+app.controller('RouteDCtrl', function ($scope, $routeParams, $location) {
   $scope.id = $routeParams.id;
+  $scope.path = $location.path();
 });

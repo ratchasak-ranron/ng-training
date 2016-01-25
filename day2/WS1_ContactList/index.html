@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" ng-app="contactApp">
+<head>
+  <meta charset="utf-8">
+  <title>Contact List</title>
+  <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel=stylesheet>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="./js/main.ctrl.js"></script>
+</head>
+<body>
+  <div class="global-wrapper" ng-controller="MainCtrl">
+
+    <!-- nav section -->
+    <nav class="navbar navbar-default" ng-controller="navCtrl">
+      <div class="container-fluid">
+        <div class="nav-header">
+          <a href="#" class="navbar-brand hidden-xs">Angular Exercise</a>
+          <ul class="nav navbar-nav">
+            <li class="active">
+              <a class="text-center" href="#/home">Home</a>
+            </li>
+            <li>
+              <a class="text-center" href="#/add">Add</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row panel panel-primary">
+        <div class="panel-heading">
+          <h2 class="panel-title">angular contact list app</h2>
+        </div>
+
+
+        <!--     contact list   	 -->
+        <div class="col-xs-5 panel-body">
+          <ul class="list-group">
+            <li class="list-group-item"> <h4>Contacts:</h4>
+              <input class="form-control" placeholder="Seach Your Contacts" type="text" ng-model="searchText">
+              <a ng-href="#" class="list-group-item ng-binding" href="#/contact-info/1">
+                Arya Stark
+              </a>
+              <a ng-href="#" class="list-group-item ng-binding" href="#/contact-info/2">
+                Brienne of Tarth
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-xs-7">
+          <div class="list-group panel-body">
+            <!-- Edit Successful & Empty info block -->
+            <div class="alert alert-success text-center">Edit Successful</div>
+            <div class="list-group-item text-center">Please select a contact to view</div>
+
+            <!-- Contact Info. -->
+            <div class="list-group-item">
+              <h3 class="text-center">Arya Stark</h3>
+              <p>email: <a href="email://waterdancer@winterfell.com">waterdancer@winterfell.com</a></p>
+              <p>phone: 123-456-7890</p>
+              <p>url: <a href="http://www.google.com">www.google.com</a></p>
+              <p>Notes:</p>
+              <p class="well well-lg">Has a list of names.</p>
+
+              <a href="#/edit/1">
+                <button class="btn btn-default">
+                  <span class="glyphicon glyphicon-pencil"></span><span> - Edit</span>
+                </button>
+              </a>
+
+              <a href="#/"><button class="btn btn-default">
+                <span class="glyphicon glyphicon-remove"></span><span> - Remove</span>
+              </button></a>
+            </div>
+
+            <!-- Add Contact -->
+            <div>
+              <div class="list-group-item">
+
+                <div class="form-group">
+
+                  <p><label for="name">name: </label> <input id="name" class="form-control" type="text"> </p>
+                  <p><label for="email">email:</label> <input id="email" class="form-control" type="text"> </p>
+                  <p><label for="phone">phone:</label> <input id="phone" class="form-control" type="text"> </p>
+                  <p><label for="url">url:</label> <input id="url" class="form-control" type="text"> </p>
+                  <p><label for="notes">notes:</label></p>
+                  <textarea class="form-control" id="notes" rows="3"></textarea>
+                </div>
+
+                <a href="#/contact-info/1">
+                  <button class="btn btn-default">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <span> Add</span>
+                  </button>
+                </a>
+
+                <a ng-href="#/contact-info/1">
+                  <button class="btn btn-default">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <span> Save Edits</span>
+                  </button>
+                </a>
+
+                <a href="#/">
+                  <button class="btn btn-default">
+                    <span class="glyphicon glyphicon-remove"></span><span>  Cancel</span>
+                  </button>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
