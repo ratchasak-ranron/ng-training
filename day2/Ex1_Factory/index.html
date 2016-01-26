@@ -10,17 +10,25 @@
 </head>
 <body>
 <div ng-controller="MainCtrl">
-  <table>
+  <table width="100%">
     <tr ng-repeat="contact in contactContainer.contactList">
       <td>{{ contact.getName() }}</td>
       <td>{{ contact.getEmail() }}</td>
       <td>{{ contact.getPhone() }}</td>
-      <td>{{ contact.getMoney() }}</td>
+      <td ng-bind-html="contact.getUrlLink()"></td>
+      <td>{{ contact.getNotes() }}</td>
       <td></td>
     </tr>
   </table>
   <br/><br/>
   Private Var: {{contactContainer.getPrivateVar()}}
+</div>
+<div ng-controller="SecondCtrl">
+  Edit contact at index 1<br/>
+  Row: <input ng-model="row" ng-change="name=contactContainer.contactList[row].getName()">
+  <div>
+    Name: <input ng-model="name" ng-change="contactContainer.contactList[row].setName(name)">
+  </div>
 </div>
 </body>
 </html>
