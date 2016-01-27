@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" ng-app="fbfApp">
+<head>
+  <meta charset="utf-8">
+  <title>Contact List</title>
+
+  <!-- build:css assets/css/vendor.css -->
+  <link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel=stylesheet>
+  <!-- endbuild -->
+
+  <!-- build:css assets/css/app.css -->
+  <link href="app/app.css" rel="stylesheet">
+
+  <link href="app/add_contact/add_contact.css" rel="stylesheet">
+  <link href="app/edit_contact/edit_contact.css" rel="stylesheet">
+  <link href="app/view_contact/view_contact.css" rel="stylesheet">
+  <!-- endbuild -->
+</head>
+<body>
+
+<div ng-controller="MainCtrl">
+  <div ui-view="container"></div>
+</div>
+
+<!-- build:js assets/js/vendor.js -->
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-route/angular-route.js"></script>
+<script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<!-- endbuild -->
+
+<!-- build:js assets/js/templates.js -->
+<script type="text/javascript" src="../.tmp/templates/templates.js"></script>
+<!-- endbuild -->
+
+<!-- build:copy assets/js/config.js -->
+<script type="text/javascript" src="app/config.js"></script>
+<!-- endbuild -->
+
+<!-- build:js assets/js/app.js -->
+<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="app/components/global/global.js"></script>
+<script type="text/javascript" src="app/components/utils/utils.js"></script>
+
+<!-- Directives -->
+<script type="text/javascript" src="app/components/directives/contact/contact_directive.js"></script>
+
+<!-- Services -->
+<script type="text/javascript" src="app/components/contact-service/contact-service.js"></script>
+
+<!-- Controllers -->
+<script type="text/javascript" src="app/header/header-controller.js"></script>
+<script type="text/javascript" src="app/add_contact/add_contact_controller.js"></script>
+<script type="text/javascript" src="app/edit_contact/edit_contact_controller.js"></script>
+<script type="text/javascript" src="app/view_contact/view_contact_controller.js"></script>
+<script type="text/javascript" src="app/contact/contact-controller.js"></script>
+<script type="text/javascript" src="app/main/main-controller.js"></script>
+<!-- endbuild -->
+</body>
+</html>

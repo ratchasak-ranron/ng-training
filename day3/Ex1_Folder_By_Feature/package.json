@@ -1,0 +1,37 @@
+{
+  "name": "homepro-frontend",
+  "version": "0.0.1",
+  "description": "Homepro Promotion Frontend",
+  "author": "Ratchasak Ranron <ratchasak.ranron@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodejitsu/browsenpm.org"
+  },
+  "bugs": {
+    "url": "https://github.com/nodejitsu/browsenpm.org/issues"
+  },
+  "keywords": [],
+  "dependencies": {},
+  "devDependencies": {
+    "es6-promise": "*",
+    "gulp": "*",
+    "gulp-clean": "*",
+    "gulp-if": "*",
+    "gulp-minify-css": "*",
+    "gulp-minify-html": "*",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-ngmin": "^0.3.0",
+    "gulp-print": "*",
+    "gulp-replace": "*",
+    "gulp-rev": "*",
+    "gulp-uglify": "*",
+    "gulp-usemin": "0.3.8",
+    "gulp-ng-templates": "0.0.6",
+    "gulp-htmlmin": "~1.2",
+    "del": "~2.0",
+    "vinyl-ftp": "~0.4",
+    "gulp-util": "~3.0",
+    "run-sequence": "~1.1"
+  },
+  "private": true
+}

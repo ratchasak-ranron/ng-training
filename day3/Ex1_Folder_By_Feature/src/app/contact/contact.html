@@ -1,0 +1,23 @@
+<div class="row panel panel-primary">
+  <div class="panel-heading">
+    <h2 class="panel-title">angular contact list app</h2>
+  </div>
+
+
+  <!--     contact list   	 -->
+  <div class="col-xs-5 panel-body">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div ui-view="contact_list"></div>
+      </li>
+    </ul>
+  </div>
+
+  <!--   ng-view below       -->
+  <div class="col-xs-7">
+    <div class="list-group panel-body">
+      <div ui-view="contact_action"></div>
+    </div>
+  </div>
+
+</div>
