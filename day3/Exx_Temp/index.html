@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="firstApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact with $http</title>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="js/main.ctrl.js"></script>
+  <link href="css/app.css" rel=stylesheet>
+</head>
+<body>
+<div ng-controller="MainCtrl">
+  <table>
+    <tr ng-repeat="contact in contactList">
+      <td>{{contact.id}}</td>
+      <td>{{contact.name}}</td>
+      <td>{{contact.email}}</td>
+      <td>{{contact.phone}}</td>
+      <td>{{contact.url}}</td>
+      <td>{{contact.notes}}</td>
+    </tr>
+  </table>
+  <!--{{contact.id}}<br/>-->
+  <!--{{contact.name}}<br/>-->
+  <!--{{contact.email}}<br/>-->
+  <!--{{contact.phone}}<br/>-->
+  <!--{{contact.url}}<br/>-->
+  <!--{{contact.notes}}<br/>-->
+</div>
+</body>
+</html>

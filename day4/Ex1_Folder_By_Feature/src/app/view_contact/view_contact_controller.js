@@ -12,11 +12,16 @@ angular.module('controller.contact.view', [])
       }
     });
   }])
-  .controller('ViewContactCtrl', function ($rootScope, $scope, $stateParams, global) {
+  .controller('ViewContactCtrl', function ($rootScope, $scope, $stateParams, global, $state) {
     var contactId = $stateParams.contactId;
 
     $scope.currentContact = global.contactList[global.contactMapIdIndex[contactId]];
     $scope.removeContact = function (contact) {
-
+      if(confirm('Are you sure ?')) {
+        contact.delete().then(function success(isSuccess) {
+          delete global.contactList[global.contactMapIdIndex[contactId]];
+          $state.go('root.contact', {isEditSuccess: true})
+        });
+      }
     };
   });

@@ -12,16 +12,13 @@
   <div class="global-wrapper" ng-controller="MainCtrl">
 
     <!-- nav section -->
-    <nav class="navbar navbar-default" ng-controller="navCtrl">
+    <nav class="navbar navbar-default" ng-controller="NavBarCtrl">
       <div class="container-fluid">
         <div class="nav-header">
           <a href="#" class="navbar-brand hidden-xs">Angular Exercise</a>
           <ul class="nav navbar-nav">
-            <li class="active">
-              <a class="text-center" href="#/home">Home</a>
-            </li>
-            <li>
-              <a class="text-center" href="#/add">Add</a>
+            <li ng-class="{'active' : currentPage == nav.name}" ng-repeat="nav in navList">
+              <a class="text-center" ng-href="{{nav.link}}">{{nav.text}}</a>
             </li>
           </ul>
         </div>
@@ -34,17 +31,13 @@
           <h2 class="panel-title">angular contact list app</h2>
         </div>
 
-
         <!--     contact list   	 -->
         <div class="col-xs-5 panel-body">
-          <ul class="list-group">
+          <ul class="list-group" ng-controller="ContactListCtrl">
             <li class="list-group-item"> <h4>Contacts:</h4>
               <input class="form-control" placeholder="Seach Your Contacts" type="text" ng-model="searchText">
-              <a ng-href="#" class="list-group-item ng-binding" href="#/contact-info/1">
-                Arya Stark
-              </a>
-              <a ng-href="#" class="list-group-item ng-binding" href="#/contact-info/2">
-                Brienne of Tarth
+              <a ng-href="#" class="list-group-item ng-binding" href="#/view/{{contact.id}}" ng-repeat="contact in contacts">
+                {{ contact.name }}
               </a>
             </li>
           </ul>

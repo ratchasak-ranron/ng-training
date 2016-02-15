@@ -4,8 +4,8 @@
     <div class="nav-header">
       <a href="#" class="navbar-brand hidden-xs">Angular Exercise</a>
       <ul class="nav navbar-nav">
-        <li ng-repeat="navItem in nav.navItems" ng-class="{active : $index === nav.selectedIndex}">
-          <a class="text-center" ng-click="nav.navClick($index)" ng-href="#{{navItem.link}}">{{navItem.text}}</a>
+        <li ng-repeat="navItem in nav.navItems" ui-sref-active="active">
+          <a class="text-center" ui-sref="{{navItem.state}}">{{navItem.text}}</a>
         </li>
       </ul>
     </div>

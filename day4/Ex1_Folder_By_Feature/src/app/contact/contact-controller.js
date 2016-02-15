@@ -22,6 +22,9 @@ angular.module('controller.contact', [])
           templateUrl: 'app/contact/not_select_contact.html',
           controller: 'NotSelectContactCtrl'
         }
+      },
+      params: {
+        isEditSuccess: false
       }
     });
   }])
@@ -33,5 +36,6 @@ angular.module('controller.contact', [])
     $scope.contacts = global.contactList;
   })
 
-  .controller('NotSelectContactCtrl', function ($scope, $rootScope) {
+  .controller('NotSelectContactCtrl', function ($scope, $rootScope, $stateParams) {
+    $scope.isEditSucess = $stateParams.isEditSuccess;
   });

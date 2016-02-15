@@ -11,21 +11,14 @@
       <textarea class="form-control" id="notes" rows="3" ng-model="currentContact.notes"></textarea>
     </div>
 
-    <a ng-if="path === '/add' " ng-href="#/contact-info/{{ contacts.length - 1 }}" ng-click="addContact()">
-      <button class="btn btn-default">
+    <a ng-click="addContact()">
+      <button class="btn btn-default" ng-disabled="isDisableButton">
         <span class="glyphicon glyphicon-ok"></span>
         <span> Add</span>
       </button>
     </a>
 
-    <a ng-if="path !== '/add'" ng-href="#/contact-info/{{index}}">
-      <button class="btn btn-default">
-        <span class="glyphicon glyphicon-ok"></span>
-        <span> Save Edits</span>
-      </button>
-    </a>
-
-    <a href="#/">
+    <a ui-sref="root.contact">
       <button class="btn btn-default">
         <span class="glyphicon glyphicon-remove"></span><span>  Cancel</span>
       </button>

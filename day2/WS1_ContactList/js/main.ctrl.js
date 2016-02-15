@@ -1,7 +1,37 @@
 var app = angular.module('contactApp', ['ngRoute']);
 
 app.controller('MainCtrl', function ($scope, $rootScope) {
-  $scope.contactList = [
+});
+
+app.controller('NavBarCtrl', function ($scope, $rootScope, $location) {
+  $scope.currentPage = '';
+  var path = $location.path();
+  if(path == '/home') {
+    $scope.currentPage = 'home';
+  } else if(path == '/add') {
+    $scope.currentPage = 'add';
+  }
+
+  $scope.navList = [
+    {
+      name: 'home',
+      link: '#/home',
+      text: 'Home'
+    },
+    {
+      name: 'add',
+      link: '#/add',
+      text: 'Add'
+    }
+  ]
+});
+
+app.controller('ContactListCtrl', function ($scope, global) {
+  $scope.contacts = global.contactList;
+});
+
+app.factory('global', function ($scope, $rootScope) {
+  this.contactList = [
     {id: 0, name: 'Ned Stark', email: 'ned@winterfell.com', phone: '123-456-7890', url: 'www.google.com', notes: 'Winter is coming.'},
     {id: 1, name: 'Theon Greyjoy', email: 'tgreyjoy@winterfell.com', phone: '123-456-7890', url: 'www.google.com', notes: 'Reluctant to pay iron price.'},
     {id: 2, name: 'Samwell Tarly', email: 'starly@castleblack.com', phone: '123-456-7890', url: 'www.google.com', notes: 'Loyal brother of the watch.'},
@@ -15,4 +45,6 @@ app.controller('MainCtrl', function ($scope, $rootScope) {
     {id: 10, name: 'Brienne of Tarth', email: 'oathkeeper@gmail.com', phone: '123-456-7890', url: 'www.google.com', notes: 'Do not cross her.'},
     {id: 11, name: 'Petyr Baelish', email: 'petyr@baelishindustries.com', phone: '123-456-7890', url: 'www.google.com', notes: 'Do not trust anyone.'},
   ];
+
+  return this;
 });

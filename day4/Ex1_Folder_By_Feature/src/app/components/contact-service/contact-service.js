@@ -5,6 +5,8 @@ angular.module('service.contact', [])
 /**
  * Contact Service
  */
+  .value('API_PATH', 'http://ng-training.ratchasak.me/api.php')
+
   .factory('ContactConstant', [ function () {
     return {
       STATUS_SUCCESS: 1
@@ -39,7 +41,9 @@ angular.module('service.contact', [])
   })
 
   // Factory as a Class/Model
-  .factory('Contact', function(ContactConstant) {
+  .factory('Contact', function(ContactConstant, API_PATH, $q, $http) {
+    var apiPath = API_PATH;
+
     function Contact(id, name, email, phone, url, notes) {
       // Public variable
       this.id = id;
@@ -74,34 +78,7 @@ angular.module('service.contact', [])
       return this.notes;
     };
 
-    return Contact;
-  })
-
-  // API Manager
-  .value('API_PATH', 'http://ng-training.ratchasak.me/api.php')
-  .factory('contactApiManager', function($http, $q, API_PATH, Contact) {
-    var apiPath = API_PATH;
-
-    this.list = function() {
-      var defer = $q.defer();
-
-      $http({
-        url: apiPath + '/contact?transform=1',
-        method: "GET"
-      }).then(function successCallback(response) {
-        // this callback will be called asynchronously
-        // when the response is available
-        defer.resolve(response.data.contact);
-      }, function errorCallback(response) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-        defer.reject('Cannot get contact list');
-      });
-
-      return defer.promise;
-    };
-
-    this.get = function(id) {
+    Contact.prototype.get = function get() {
       var defer = $q.defer();
 
       $http({
@@ -123,68 +100,82 @@ angular.module('service.contact', [])
       return defer.promise;
     };
 
-    this.add = function(contact) {
+    Contact.prototype.edit = function edit() {
+      var defer = $q.defer();
+
+      $http({
+        url: apiPath + '/contact/' + this.id,
+        method: "PUT",
+        data: {
+          name: this.name,
+          email: this.email,
+          phone: this.phone,
+          url: this.url,
+          notes: this.notes
+        }
+      }).then(function successCallback(response) {
+        defer.resolve(response.data);
+      }, function errorCallback(response) {
+        defer.reject();
+      });
+
+      return defer.promise;
+    };
+
+    Contact.prototype.add = function add() {
       var defer = $q.defer();
 
       $http({
         url: apiPath + '/contact',
         method: "POST",
         data: {
-          name: contact.name,
-          email: contact.email,
-          phone: contact.phone,
-          url: contact.url,
-          notes: contact.notes
+          name: this.name,
+          email: this.email,
+          phone: this.phone,
+          url: this.url,
+          notes: this.notes
         }
       }).then(function successCallback(response) {
-        // this callback will be called asynchronously
-        // when the response is available
-        defer.resolve('Success!');
+        defer.resolve(response.data); // return new ID
       }, function errorCallback(response) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
         defer.reject('Cannot get contact list');
       });
 
       return defer.promise;
     };
 
-    this.edit = function(contact) {
+    Contact.prototype.delete = function contact_delete() {
       var defer = $q.defer();
 
       $http({
-        url: apiPath + '/contact/' + contact.id,
-        method: "PUT",
-        data: {
-          name: contact.name,
-          email: contact.email,
-          phone: contact.phone,
-          url: contact.url,
-          notes: contact.notes
-        }
-      }).then(function successCallback(response) {
-        // this callback will be called asynchronously
-        // when the response is available
-        defer.resolve('Success!');
-      }, function errorCallback(response) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-        defer.reject('Cannot get contact list');
-      });
-
-      return defer.promise;
-    };
-
-    this.delete = function(contact) {
-      var defer = $q.defer();
-
-      $http({
-        url: apiPath + '/contact/' + contact.id,
+        url: apiPath + '/contact/' + this.id,
         method: "DELETE"
       }).then(function successCallback(response) {
+        defer.resolve(response.data); // is successful
+      }, function errorCallback(response) {
+        defer.reject();
+      });
+
+      return defer.promise;
+    };
+
+    return Contact;
+  })
+
+  // API Manager
+  .factory('contactApiManager', function($http, $q, API_PATH) {
+    var apiPath = API_PATH;
+
+    this.list = function() {
+      var defer = $q.defer();
+
+      $http({
+        url: apiPath + '/contact?transform=1',
+        method: "GET"
+      }).then(function successCallback(response) {
         // this callback will be called asynchronously
         // when the response is available
-        defer.resolve('Success!');
+        defer.resolve(response.data.contact);
       }, function errorCallback(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.

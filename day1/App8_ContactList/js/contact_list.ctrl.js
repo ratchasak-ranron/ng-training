@@ -4,7 +4,7 @@ var app = angular.module('myApp', ['ngRoute']);
 app.config(function ($routeProvider, $locationProvider){
     $routeProvider
       .when('/home', {
-          templateUrl: 'default.html',
+          templateUrl: 'templates/default.html',
       })
       .when('/contact-info/:contact_index', {
           templateUrl: 'contact_info.html',
@@ -52,8 +52,20 @@ app.config(function ($routeProvider, $locationProvider){
       //needed to show the correct button on the contact form
       $scope.path = $location.path();
 
+      $scope.name = '';
+      $scope.email = '';
+      $scope.phone = '';
+      $scope.url = '';
+      $scope.notes = '';
+
       $scope.addContact = function () {
-          var contact = $scope.currentContact;
+          var contact = {
+            name: $scope.name,
+            email: $scope.email,
+            phone: $scope.phone,
+            url: $scope.url,
+            notes: $scope.notes,
+          };
           contact.id = $scope.contacts.length;
           $scope.contacts.push(contact);
       };
@@ -63,6 +75,20 @@ app.config(function ($routeProvider, $locationProvider){
   .controller('editContactCtrl', function ($scope, $routeParams){
       $scope.index = $routeParams.contact_index;
       $scope.currentContact = $scope.contacts[$scope.index];
+
+      $scope.name = $scope.currentContact.name;
+      $scope.email = $scope.currentContact.email;
+      $scope.phone = $scope.currentContact.phone;
+      $scope.url = $scope.currentContact.url;
+      $scope.notes = $scope.currentContact.notes;
+
+      $scope.editContact = function() {
+        $scope.currentContact.name = $scope.name;
+        $scope.currentContact.email = $scope.email;
+        $scope.currentContact.phone = $scope.phone;
+        $scope.currentContact.url = $scope.url;
+        $scope.currentContact.notes = $scope.notes;
+      }
   })
 
   // directives

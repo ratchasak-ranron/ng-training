@@ -147,6 +147,8 @@ angular.module('service.contact', [])
 /**
  * Contact Service
  */
+  .value('API_PATH', 'http://ng-training.ratchasak.me/api.php')
+
   .factory('ContactConstant', [ function () {
     return {
       STATUS_SUCCESS: 1
@@ -181,7 +183,9 @@ angular.module('service.contact', [])
   })
 
   // Factory as a Class/Model
-  .factory('Contact', function(ContactConstant) {
+  .factory('Contact', function(ContactConstant, API_PATH, $q, $http) {
+    var apiPath = API_PATH;
+
     function Contact(id, name, email, phone, url, notes) {
       // Public variable
       this.id = id;
@@ -216,34 +220,7 @@ angular.module('service.contact', [])
       return this.notes;
     };
 
-    return Contact;
-  })
-
-  // API Manager
-  .value('API_PATH', 'http://ng-training.ratchasak.me/api.php')
-  .factory('contactApiManager', function($http, $q, API_PATH, Contact) {
-    var apiPath = API_PATH;
-
-    this.list = function() {
-      var defer = $q.defer();
-
-      $http({
-        url: apiPath + '/contact?transform=1',
-        method: "GET"
-      }).then(function successCallback(response) {
-        // this callback will be called asynchronously
-        // when the response is available
-        defer.resolve(response.data.contact);
-      }, function errorCallback(response) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-        defer.reject('Cannot get contact list');
-      });
-
-      return defer.promise;
-    };
-
-    this.get = function(id) {
+    Contact.prototype.get = function get() {
       var defer = $q.defer();
 
       $http({
@@ -265,68 +242,82 @@ angular.module('service.contact', [])
       return defer.promise;
     };
 
-    this.add = function(contact) {
+    Contact.prototype.edit = function edit() {
+      var defer = $q.defer();
+
+      $http({
+        url: apiPath + '/contact/' + this.id,
+        method: "PUT",
+        data: {
+          name: this.name,
+          email: this.email,
+          phone: this.phone,
+          url: this.url,
+          notes: this.notes
+        }
+      }).then(function successCallback(response) {
+        defer.resolve(response.data);
+      }, function errorCallback(response) {
+        defer.reject();
+      });
+
+      return defer.promise;
+    };
+
+    Contact.prototype.add = function add() {
       var defer = $q.defer();
 
       $http({
         url: apiPath + '/contact',
         method: "POST",
         data: {
-          name: contact.name,
-          email: contact.email,
-          phone: contact.phone,
-          url: contact.url,
-          notes: contact.notes
+          name: this.name,
+          email: this.email,
+          phone: this.phone,
+          url: this.url,
+          notes: this.notes
         }
       }).then(function successCallback(response) {
-        // this callback will be called asynchronously
-        // when the response is available
-        defer.resolve('Success!');
+        defer.resolve(response.data); // return new ID
       }, function errorCallback(response) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
         defer.reject('Cannot get contact list');
       });
 
       return defer.promise;
     };
 
-    this.edit = function(contact) {
+    Contact.prototype.delete = function contact_delete() {
       var defer = $q.defer();
 
       $http({
-        url: apiPath + '/contact/' + contact.id,
-        method: "PUT",
-        data: {
-          name: contact.name,
-          email: contact.email,
-          phone: contact.phone,
-          url: contact.url,
-          notes: contact.notes
-        }
-      }).then(function successCallback(response) {
-        // this callback will be called asynchronously
-        // when the response is available
-        defer.resolve('Success!');
-      }, function errorCallback(response) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-        defer.reject('Cannot get contact list');
-      });
-
-      return defer.promise;
-    };
-
-    this.delete = function(contact) {
-      var defer = $q.defer();
-
-      $http({
-        url: apiPath + '/contact/' + contact.id,
+        url: apiPath + '/contact/' + this.id,
         method: "DELETE"
       }).then(function successCallback(response) {
+        defer.resolve(response.data); // is successful
+      }, function errorCallback(response) {
+        defer.reject();
+      });
+
+      return defer.promise;
+    };
+
+    return Contact;
+  })
+
+  // API Manager
+  .factory('contactApiManager', function($http, $q, API_PATH) {
+    var apiPath = API_PATH;
+
+    this.list = function() {
+      var defer = $q.defer();
+
+      $http({
+        url: apiPath + '/contact?transform=1',
+        method: "GET"
+      }).then(function successCallback(response) {
         // this callback will be called asynchronously
         // when the response is available
-        defer.resolve('Success!');
+        defer.resolve(response.data.contact);
       }, function errorCallback(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
@@ -346,18 +337,14 @@ angular.module('controller.header', [])
     $scope.nav = {
       navItems: [
         {
-          link: '',
+          state: 'root.contact',
           text: 'home'
         },
         {
-          link: '/add',
+          state: 'root.contact.add',
           text: 'add'
         }
-      ],
-      selectedIndex: 0,
-      navClick: function ($index) {
-        $scope.nav.selectedIndex = $index;
-      }
+      ]
     };
   });
 'use strict';
@@ -369,13 +356,37 @@ angular.module('controller.contact.add', [])
       views: {
         'contact_action@root.contact': {
           templateUrl: 'app/add_contact/add_contact.html',
-          controller: 'AddContactCtrl'
+          controller: 'AddContactCtrl',
+          resolve: {
+            contactList: function (global) {
+              return global.contactListPromise;
+            }
+          }
         }
       }
     });
   }])
-  .controller('AddContactCtrl', function ($rootScope, $scope) {
+  .controller('AddContactCtrl', function ($rootScope, $scope, global, Contact, $state) {
+    $scope.currentContact = {
+      name: '',
+      email: '',
+      phone: '',
+      url: '',
+      notes: ''
+    };
 
+    $scope.isDisableButton = false;
+    $scope.addContact = function() {
+      var contact = new Contact(0, $scope.currentContact.name, $scope.currentContact.email, $scope.currentContact.phone, $scope.currentContact.url, $scope.currentContact.notes);
+
+      $scope.isDisableButton = true;
+      contact.add().then(function success(newId) {
+        contact.id = newId;
+        global.contactList.push(contact);
+        global.contactMapIdIndex[newId] = global.contactList.length - 1;
+        $state.go('root.contact', {isEditSuccess: true})
+      });
+    }
   });
 'use strict';
 
@@ -391,9 +402,20 @@ angular.module('controller.contact.edit', [])
       }
     });
   }])
-  .controller('EditContactCtrl', function ($rootScope, $scope, $stateParams, global) {
+  .controller('EditContactCtrl', function ($rootScope, $scope, $stateParams, global, $state) {
     var contactId = $stateParams.contactId;
+    $scope.contactId = contactId;
     $scope.currentContact = global.contactList[global.contactMapIdIndex[contactId]];
+    $scope.tmpContact = angular.copy($scope.currentContact);
+
+    $scope.isDisableButton = false;
+    $scope.saveEdit = function() {
+      angular.extend($scope.currentContact, $scope.tmpContact);
+      $scope.isDisableButton = true;
+      $scope.currentContact.edit().then(function success(isSuccess) {
+        $state.go('root.contact', {isEditSuccess: isSuccess})
+      });
+    }
   });
 'use strict';
 
@@ -409,12 +431,17 @@ angular.module('controller.contact.view', [])
       }
     });
   }])
-  .controller('ViewContactCtrl', function ($rootScope, $scope, $stateParams, global) {
+  .controller('ViewContactCtrl', function ($rootScope, $scope, $stateParams, global, $state) {
     var contactId = $stateParams.contactId;
 
     $scope.currentContact = global.contactList[global.contactMapIdIndex[contactId]];
     $scope.removeContact = function (contact) {
-
+      if(confirm('Are you sure ?')) {
+        contact.delete().then(function success(isSuccess) {
+          delete global.contactList[global.contactMapIdIndex[contactId]];
+          $state.go('root.contact', {isEditSuccess: true})
+        });
+      }
     };
   });
 'use strict';
@@ -441,6 +468,9 @@ angular.module('controller.contact', [])
           templateUrl: 'app/contact/not_select_contact.html',
           controller: 'NotSelectContactCtrl'
         }
+      },
+      params: {
+        isEditSuccess: false
       }
     });
   }])
@@ -452,7 +482,8 @@ angular.module('controller.contact', [])
     $scope.contacts = global.contactList;
   })
 
-  .controller('NotSelectContactCtrl', function ($scope, $rootScope) {
+  .controller('NotSelectContactCtrl', function ($scope, $rootScope, $stateParams) {
+    $scope.isEditSucess = $stateParams.isEditSuccess;
   });
 'use strict';
 

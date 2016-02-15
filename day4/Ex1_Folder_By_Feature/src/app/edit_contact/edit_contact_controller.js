@@ -12,7 +12,18 @@ angular.module('controller.contact.edit', [])
       }
     });
   }])
-  .controller('EditContactCtrl', function ($rootScope, $scope, $stateParams, global) {
+  .controller('EditContactCtrl', function ($rootScope, $scope, $stateParams, global, $state) {
     var contactId = $stateParams.contactId;
+    $scope.contactId = contactId;
     $scope.currentContact = global.contactList[global.contactMapIdIndex[contactId]];
+    $scope.tmpContact = angular.copy($scope.currentContact);
+
+    $scope.isDisableButton = false;
+    $scope.saveEdit = function() {
+      angular.extend($scope.currentContact, $scope.tmpContact);
+      $scope.isDisableButton = true;
+      $scope.currentContact.edit().then(function success(isSuccess) {
+        $state.go('root.contact', {isEditSuccess: isSuccess})
+      });
+    }
   });

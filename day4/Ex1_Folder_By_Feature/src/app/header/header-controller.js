@@ -6,17 +6,13 @@ angular.module('controller.header', [])
     $scope.nav = {
       navItems: [
         {
-          link: '',
+          state: 'root.contact',
           text: 'home'
         },
         {
-          link: '/add',
+          state: 'root.contact.add',
           text: 'add'
         }
-      ],
-      selectedIndex: 0,
-      navClick: function ($index) {
-        $scope.nav.selectedIndex = $index;
-      }
+      ]
     };
   });
