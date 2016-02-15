@@ -28,7 +28,7 @@ config.factory('APP_CONFIG', function(APP_CONFIG_LOCAL, APP_CONFIG_INTERNAL, APP
   this.ENV_STAGING  = 'uat';
   this.ENV_PROD     = 'production';
 
-  this.ENV = 'local';
+  this.ENV = '@@EnvironmentName';
 
   switch(this.ENV) {
     case this.ENV_LOCAL:

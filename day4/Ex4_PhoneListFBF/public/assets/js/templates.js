@@ -1,0 +1,1 @@
+angular.module("templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("app/home/home.html","<div id=\"home\"><div class=\"txt-color\">{{hello}}</div></div>");}]);
