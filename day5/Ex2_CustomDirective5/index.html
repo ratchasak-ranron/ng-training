@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="firstApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact with $http</title>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="js/main.ctrl.js"></script>
+  <link href="css/app.css" rel=stylesheet>
+  <style>
+    .activeClass {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<div ng-controller="MainCtrl">
+  Date format: <input ng-model="format"> <hr/>
+  Current time is: <span my-current-time="format"></span>
+</div>
+</body>
+</html>

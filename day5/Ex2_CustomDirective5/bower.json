@@ -1,0 +1,22 @@
+{
+  "name": "App0_Setup",
+  "authors": [
+    "Ratchasak Ranron <ratchasak.ranron@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#~1.4.9",
+    "angular-sanitize": "~1.4.9"
+  }
+}
