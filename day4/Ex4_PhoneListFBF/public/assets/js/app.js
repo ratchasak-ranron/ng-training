@@ -7,11 +7,31 @@ var app = angular.module('myApp', [
 
   // controller
   'controller.main',
-  'controller.home'
+  'controller.header'
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('/');
+}]);
+
+app.config(['$stateProvider', function($stateProvider){
+  $stateProvider
+    .state('root',{
+      url: '',
+      abstract: true,
+      data: {
+
+      },
+      views: {
+        'container@': {
+          templateUrl: 'app/layout/layout.html'
+        },
+        'header@root': {
+          templateUrl: 'app/header/header.html',
+          controller: 'HeaderCtrl'
+        }
+      }
+    })
 }]);
 
 app.run(['$rootScope', '$state', '$stateParams', '$location',
@@ -45,18 +65,19 @@ angular.module('controller.main', [])
   });
 'use strict';
 
-angular.module('controller.home', [])
-  .config(['$stateProvider', function($stateProvider){
-    $stateProvider.state('home', {
-      url: '/',
-      views: {
-        'container': {
-          templateUrl: 'app/home/home.html',
-          controller: 'HomeCtrl'
+angular.module('controller.header', [])
+
+  .controller('HeaderCtrl', function ($scope, $rootScope) {
+    $scope.nav = {
+      navItems: [
+        {
+          state: 'root.contact',
+          text: 'home'
+        },
+        {
+          state: 'root.contact.add',
+          text: 'add'
         }
-      }
-    });
-  }])
-  .controller('HomeCtrl', function ($rootScope, $scope) {
-    $scope.hello = 'Hello World';
+      ]
+    };
   });

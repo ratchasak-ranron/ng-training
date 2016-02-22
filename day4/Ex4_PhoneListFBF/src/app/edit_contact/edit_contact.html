@@ -1,0 +1,27 @@
+<div>
+  <div class="list-group-item">
+
+    <div class="form-group">
+
+      <p><label for="name">name: </label> <input id="name" class="form-control" type="text" ng-model="tmpContact.name"> </p>
+      <p><label for="email">email:</label> <input id="email" class="form-control" type="text" ng-model="tmpContact.email"> </p>
+      <p><label for="phone">phone:</label> <input id="phone" class="form-control" type="text" ng-model="tmpContact.phone"> </p>
+      <p><label for="url">url:</label> <input id="url" class="form-control" type="text" ng-model="tmpContact.url"> </p>
+      <p><label for="notes">notes:</label></p>
+      <textarea class="form-control" id="notes" rows="3" ng-model="tmpContact.notes"></textarea>
+    </div>
+
+    <a ng-click="saveEdit()">
+      <button class="btn btn-default" ng-disabled="isDisableButton">
+        <span class="glyphicon glyphicon-ok"></span>
+        <span> Save Edits</span>
+      </button>
+    </a>
+
+    <a ui-sref="root.contact.view({contactId: {{contactId}}})">
+      <button class="btn btn-default">
+        <span class="glyphicon glyphicon-remove"></span><span>  Cancel</span>
+      </button>
+    </a>
+  </div>
+</div>

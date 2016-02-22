@@ -5,7 +5,7 @@ app.directive('myCustomer', function() {
   return {
     restrict: 'E',
     scope: {
-      customerInfo: '=info'
+      customerInfo: '='
     },
     template: 'Name: {{customerInfo.name}} Address: {{customerInfo.address}}'
   };

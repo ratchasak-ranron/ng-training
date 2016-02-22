@@ -19,18 +19,18 @@ app.filter('reverse', function() {
 app.value('decoration', {symbol: '*'});
 app.filter('decorate', ['decoration', function(decoration) {
 
-  function decorateFilter(input) {
-    return decoration.symbol + input + decoration.symbol;
+  function decorateFilter(input, symbol) {
+    return symbol + input + symbol;
   }
   decorateFilter.$stateful = true;
 
   return decorateFilter;
 }]);
 
-app.controller('MainCtrl', function ($scope, reverseFilter, decoration) {
+app.controller('MainCtrl', function ($scope, reverseFilter) {
   $scope.greeting = 'hello';
-  $scope.filteredGreeting = reverseFilter($scope.greeting);
+  $scope.filteredGreeting = reverseFilter($scope.greeting, true);
 
   $scope.greeting2 = 'hello';
-  $scope.decoration = decoration;
+  $scope.symbol = '*';
 });

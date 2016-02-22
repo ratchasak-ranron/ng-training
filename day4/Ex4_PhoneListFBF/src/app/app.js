@@ -7,11 +7,31 @@ var app = angular.module('myApp', [
 
   // controller
   'controller.main',
-  'controller.home'
+  'controller.header'
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('/');
+}]);
+
+app.config(['$stateProvider', function($stateProvider){
+  $stateProvider
+    .state('root',{
+      url: '',
+      abstract: true,
+      data: {
+
+      },
+      views: {
+        'container@': {
+          templateUrl: 'app/layout/layout.html'
+        },
+        'header@root': {
+          templateUrl: 'app/header/header.html',
+          controller: 'HeaderCtrl'
+        }
+      }
+    })
 }]);
 
 app.run(['$rootScope', '$state', '$stateParams', '$location',

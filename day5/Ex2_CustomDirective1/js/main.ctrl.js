@@ -24,6 +24,15 @@ app.directive("goodbye", function() {
   }
 });
 
+app.directive("bye", function() {
+  return {
+    restrict: "A",
+    link: function(){
+      alert("Bye!");
+    }
+  }
+});
+
 app.controller('MainCtrl', function ($scope) {
 
 });
